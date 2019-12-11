@@ -1,12 +1,30 @@
-.states :hover {
-    fill: red;
-  }
-  
-  .state-borders {
-    fill: none;
-    stroke: #fff;
-    stroke-width: 0.5px;
-    stroke-linejoin: round;
-    stroke-linecap: round;
-    pointer-events: none;
-  }
+/* .land {
+  fill: #222;
+}
+
+.county-boundary {
+  fill: none;
+  stroke: #fff;
+
+  stroke-width: .5px;
+}
+
+.state-boundary {
+  fill: none;
+  stroke: #fff;
+} */
+
+path {
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.background {
+  fill: none;
+  stroke: #ddd;
+}
+
+.foreground {
+  fill: none;
+  pointer-events: all;
+}
