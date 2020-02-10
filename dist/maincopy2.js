@@ -20,6 +20,9 @@ window.onload = (event) => {
     var bisectId = d3.bisector(function(d) { return d.id; }).left;
 
     var features = topojson.feature(us, us.objects.states).features;
+    // var features = topojson.feature(us, us.objects.states);
+    console.log('us:', topojson.feature(us, us.objects.states))
+
 
     // svg.append("path")
     //     .datum(topojson.mesh(us, us.objects.states))
@@ -104,9 +107,11 @@ var colorIndex = 0;
         // .attr("d", function(d) { 
         //   d.color = null; return path(d); 
         // })
+        // .attr("d", d3.geoPath())
         .attr("d", function(d) { 
           return path(d); 
         })
+        .attr("class", "state")
         .style("fill", function() {
           var tempColor = myColors[colorIndex]
           colorIndex += 1
@@ -118,8 +123,9 @@ var colorIndex = 0;
       // var shadowPath = "M418.208,360.312C375.354,389.774,318.103,406,257,406    c-61.254,0-118.884-16.242-162.273-45.733C52.986,331.898,30,294.868,30,256s22.986-75.898,64.727-104.267    C138.116,122.242,195.746,106,257,106c61.103,0,118.354,16.226,161.208,45.688C459.345,179.97,482,217.015,482,256    S459.345,332.03,418.208,360.312z" 
 
       var newG = svg.append("g")
+        //The circle below is a shadow that goes underneath the pin 
         newG.append("circle").attr("cx", 0).attr("cy", 0).attr("r", 10).attr("transform", function() {return "translate(" + projection([-97.6228744,41.8901482]) + ") scale(0.5 0.17 )";}).style("fill", "rgba(0, 0, 0, 0.2)");
-        newG.append("path").attr("d", pinPath).attr("transform", function() {return "translate(" + projection([-97.6228744,41.8901482]) + ")";}).style("fill", "white");
+        newG.append("path").attr("class", "daPath").attr("d", pinPath).attr("transform", function() {return "translate(" + projection([-97.6228744,41.8901482]) + ")";}).style("fill", "white");
         // newG.append("path").attr("d", shadowPath).attr("transform", function() {return "translate(" + projection([-97.6228744,41.8901482]) + ") scale(0.4)";}).style("fill", "rgba(0, 0, 0, 0.2)");
 
         newG.append("path").attr("d", pinPath).attr("transform", function() {return "translate(" + projection([-100.6228744,41.8901482]) + ")";}).style("fill", "red");
@@ -128,12 +134,28 @@ var colorIndex = 0;
         newG.append("path").attr("d", pinPath).attr("transform", function() {return "translate(" + projection([-134.5177285,58.2888866]) + ")";}).style("fill", "green");
         newG.append("path").attr("d", pinPath).attr("transform", function() {return "translate(" + projection([-67.140466,44.8138728]) + ")";}).style("fill", "pink");
         
-        newG
-          .attr("transform", "translate(0,-200)")
+        var allPaths = d3.select(".daPath")
+        console.log('allPaths:', allPaths)
+
+        allPaths
+          .attr("transform", function() {
+            debugger;
+            console.log("current pin: " ,this)
+            return "translate(" + projection([-97.6228744,52.37]) + ")";
+          })
+          // .attr("transform", function() {return "translate(" + projection([-97.6228744,49.3631724]) + ")";})
+          // .attr("transform", "translate(0,0)")
           .transition()
           .ease("bounce")
-          .duration(800)
-          .attr("transform", "translate(0,0)")
+          .duration(2000)
+          .attr("transform", function() {return "translate(" + projection([-97.6228744,41.8901482]) + ")";})
+        
+        // newG
+        //   .attr("transform", "translate(0,-200)")
+        //   .transition()
+        //   .ease("bounce")
+        //   .duration(800)
+        //   .attr("transform", "translate(0,0)")
           
           
         // .on("mouseover", function() { this.style.stroke = "black"; })

@@ -28,3 +28,17 @@ path {
   fill: none;
   pointer-events: all;
 }
+
+/* path[d]:hover {
+  transform: scale(1.5, 1.5);
+} */
+
+.state {
+  fill: orange;
+}
+
+.state:hover {
+  fill: red !important;
+  /* stroke: purple;
+  stroke-width: 5px; */
+}
